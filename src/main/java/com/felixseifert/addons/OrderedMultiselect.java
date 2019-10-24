@@ -1,11 +1,14 @@
 package com.felixseifert.addons;
 
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasEnabled;
 import com.vaadin.flow.component.ItemLabelGenerator;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.customfield.CustomField;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
@@ -33,7 +36,7 @@ public class OrderedMultiselect<T> extends CustomField<List<T>> implements HasEn
 
     private Button addButton = new Button(VaadinIcon.ENTER_ARROW.create());
 
-    private Label descriptionLabel = new Label();
+    private Div description = new Div();
 
     private HorizontalLayout labelLayout = new HorizontalLayout();
 
@@ -47,7 +50,7 @@ public class OrderedMultiselect<T> extends CustomField<List<T>> implements HasEn
 
     public OrderedMultiselect() {
         super(Collections.emptyList());
-        add(descriptionLabel);
+        add(description);
         add(createSelect());
         add(labelLayout);
         labelLayout.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
@@ -207,8 +210,12 @@ public class OrderedMultiselect<T> extends CustomField<List<T>> implements HasEn
         enableButton(true);
     }
 
-    public void setDescription(String description) {
-        descriptionLabel.setText(description);
+    public void setDescription(String descriptionText) {
+        description.add(new Span(descriptionText));
+    }
+
+    public void setDescription(Component descriptionComponent) {
+        description.add(descriptionComponent);
     }
 
     @Override
