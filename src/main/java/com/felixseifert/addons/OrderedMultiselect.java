@@ -72,7 +72,7 @@ public class OrderedMultiselect<T> extends CustomField<List<T>> implements HasEn
     protected void setPresentationValue(List<T> ts) {
         itemList.clear();
         refreshLabels();
-        ts.stream().forEach(this::addListener);
+        ts.stream().forEach(this::addSelectedItem);
     }
 
     private HorizontalLayout createSelect() {
@@ -87,12 +87,12 @@ public class OrderedMultiselect<T> extends CustomField<List<T>> implements HasEn
 
         addButton.setEnabled(false);
         addButton.setIconAfterText(true);
-        addButton.addClickListener(event -> addListener(select.getValue()));
+        addButton.addClickListener(event -> addSelectedItem(select.getValue()));
 
         return horizontalLayout;
     }
 
-    private void addListener(T toAdd) {
+    private void addSelectedItem(T toAdd) {
         if(toAdd == null) return;
         if(!itemList.isEmpty()) {
             itemList.add(createChangeIcon());
@@ -102,7 +102,7 @@ public class OrderedMultiselect<T> extends CustomField<List<T>> implements HasEn
         enableButton(false);
     }
 
-    private void removeListener(String text) {
+    private void removeSelectedItem(String text) {
         if(itemList.isEmpty() || StringUtils.isBlank(text)) return;
 
         int numberInParentheses;
@@ -159,7 +159,7 @@ public class OrderedMultiselect<T> extends CustomField<List<T>> implements HasEn
             else {
                 button.setText(String.format("%s (%d)", itemLabelGenerator.apply((T) item), numberOfTs));
             }
-            button.addClickListener(event -> removeListener(event.getSource().getText()));
+            button.addClickListener(event -> removeSelectedItem(event.getSource().getText()));
             labelLayout.add(button);
         }
         updateValue();
@@ -293,7 +293,7 @@ public class OrderedMultiselect<T> extends CustomField<List<T>> implements HasEn
     public void setValue(List<T> value) {
         itemList.clear();
         refreshLabels();
-        value.forEach(this::addListener);
+        value.forEach(this::addSelectedItem);
     }
 
     @Override
