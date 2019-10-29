@@ -7,7 +7,6 @@ import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.customfield.CustomField;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -100,6 +99,7 @@ public class OrderedMultiselect<T> extends CustomField<List<T>> implements HasEn
         itemList.add(toAdd);
         refreshLabels();
         enableButton(false);
+        select.clear();
     }
 
     private void removeSelectedItem(String text) {
